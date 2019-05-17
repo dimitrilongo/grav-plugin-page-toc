@@ -61,7 +61,9 @@ class PageTOCPlugin extends Plugin
         $start = $config->get('start', 1);
         $depth = $config->get('depth', 6);
 
-        if ($active) {
+        $header  = $page->header();
+
+        if ($active || ( isset( $header->toc_right_side ) && $header->toc_right_side == true )) {
             $markup_fixer  = new \TOC\MarkupFixer();
             $page->setRawContent( $markup_fixer->fix($page->getRawContent(), $start, $depth));
         }
